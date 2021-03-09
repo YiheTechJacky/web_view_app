@@ -1,0 +1,9 @@
+{
+  "initJavascript" : "(function () {window.isNativeApp = true;})();",
+  "domainNamePrefix" : "domain1",
+  "platName": "pid",
+  "urlList" : [ 
+    "https://domain1/#/",
+    "https://domain2/#/",
+    "https://domain3/#/"]
+}

@@ -1,0 +1,10 @@
+{
+  "initJavascript": "(function () { window.ReactNativeWebView.postMessage('123'); })();",
+  "domainNamePrefix": "hongboguoji888",
+  "platName": "test",
+  "urlList": [
+    "https://www.google.com/",
+    "https://www.google.com/",
+    "https://www.google.com/"
+  ]
+}
