@@ -18,7 +18,8 @@ import sentryDnsMapping from './src/components/sentryDsnMapping';
 const config = require('./src/statics/config.json');
 
 Sentry.init({ 
-  dsn: sentryDnsMapping[config.platName] || sentryDnsMapping.test, 
+  // dsn: sentryDnsMapping[config.platName] || sentryDnsMapping.test, 
+  dsn: '',
   tracesSampleRate: 1.0,
   environment: process.env.NODE_ENV,
   enableAutoSessionTracking: true,
