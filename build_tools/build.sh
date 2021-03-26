@@ -2,8 +2,8 @@
 export LANG=en_US.UTF-8
 
 # apple related vars - 此區塊與開發者帳號相關
-export BUNDLEID_SCOPE="com.hw4.app"
-export DEVELOPERTEAM="9LV5R7CP7D"
+export BUNDLEID_SCOPE="com.yihe.app"
+export DEVELOPERTEAM="7Y9L58RK9K"
 
 # jenkins vars - 此區塊對接jenkins不可變動
 export JENKINS_PLATID=$platId
@@ -40,7 +40,7 @@ else
     export PHOTO_LOCATION=$WS
     export PROJECT_LOCATION=$WS
     export BUILD_TOOLS="$WS/build_tools"
-    export USER_HOME="/Users/linyikai"
+    export USER_HOME=$HOME
 fi
 
 # 此區域變數不變
