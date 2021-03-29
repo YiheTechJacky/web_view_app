@@ -3,15 +3,15 @@ export LANG=en_US.UTF-8
 
 # apple related vars - 此區塊與開發者帳號相關
 export BUNDLEID_SCOPE="com.yihe.app"
-export DEVELOPERTEAM="7Y9L58RK9K"
+export DEVELOPERTEAM="F627XVFLML"
 
 # jenkins vars - 此區塊對接jenkins不可變動
-export JENKINS_PLATID=$platId
-export JENKINS_APP_NAME=$appName
-export JENKINS_DOMAIN1=$domain1
-export JENKINS_DOMAIN2=$domain2
-export JENKINS_DOMAIN3=$domain3
-export JENKINS_PLATNAME=$platName
+export JENKINS_PLATID="jackyt"
+export JENKINS_APP_NAME="測試一下"
+export JENKINS_DOMAIN1="www.google.com"
+export JENKINS_DOMAIN2="www.google.com"
+export JENKINS_DOMAIN3="www.google.com"
+export JENKINS_PLATNAME="1111"
 
 # vars - 下方腳本所使用之變數
 export PLATID=$JENKINS_PLATID
@@ -59,9 +59,11 @@ export PATH=$PATH:$JAVA_HOME/bin
 export PATH=$PATH:/usr/local/bin
 
 initProject() {
+    rm -rf node_modules
     npm install
     cd $WS/ios
-    pod install
+    rm -rf pods
+    arch -arch x86_64 pod install
     cd $WS
     npm run build:ios
     rm -rf $WS/android/app/src/main/res/*land*
@@ -204,5 +206,5 @@ initProject
 applicationConfig
 iconAssets
 launcherAssets
-androidBuild
+# androidBuild
 iosBuild
