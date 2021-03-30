@@ -13,6 +13,7 @@ export JENKINS_DOMAIN2=$domain2
 export JENKINS_DOMAIN3=$domain3
 export JENKINS_PLATNAME=$platName
 
+
 # vars - 下方腳本所使用之變數
 export PLATID=$JENKINS_PLATID
 export BUNDLEID="$BUNDLEID_SCOPE$JENKINS_PLATID"
@@ -28,11 +29,11 @@ export JENKINS_WORKSPACE=$WORKSPACE
 if [[ -n "$JENKINS_WORKSPACE" ]]; then
     echo "Use Jenkins Build !"
     export WS=$JENKINS_WORKSPACE
-    export EXPORTS="$HOME/Project/app/exports/$PLATID"
-    export PHOTO_LOCATION="$HOME/Project/app"
-    export PROJECT_LOCATION="$HOME/Project"
+    export EXPORTS="/Users/apphwao/Project/app/exports/$PLATID"
+    export PHOTO_LOCATION="/Users/apphwao/Project/app"
+    export PROJECT_LOCATION="/Users/apphwao/Project"
     export BUILD_TOOLS="$WS/build_tools"
-    export USER_HOME=$HOME
+    export USER_HOME="/Users/apphwao"
 else
     echo "Use Local Build !"
     export WS=$PWD
@@ -196,8 +197,8 @@ if [ ! -f $PHOTO_LOCATION/launcher.png ]; then
     echo "############"
     exit 1
 fi
-if [ ! -d $USER_HOME/Project/app/exports/$platId ] && [[ -n "$JENKINS_WORKSPACE" ]]; then
-    mkdir -p $USER_HOME/Project/app/exports/$platId
+if [ ! -d /Users/apphwao/Project/app/exports/$platId ] && [[ -n "$JENKINS_WORKSPACE" ]]; then
+    mkdir -p /Users/apphwao/Project/app/exports/$platId
 fi
 # vars
 DATE=$(date +%Y%m%d%H%M)
@@ -206,5 +207,6 @@ initProject
 applicationConfig
 iconAssets
 launcherAssets
-# androidBuild
+androidBuild
 iosBuild
+
