@@ -6,12 +6,12 @@ export BUNDLEID_SCOPE="com.yihe.app"
 export DEVELOPERTEAM="F627XVFLML"
 
 # jenkins vars - 此區塊對接jenkins不可變動
-export JENKINS_PLATID="jackyt"
-export JENKINS_APP_NAME="測試一下"
-export JENKINS_DOMAIN1="www.google.com"
-export JENKINS_DOMAIN2="www.google.com"
-export JENKINS_DOMAIN3="www.google.com"
-export JENKINS_PLATNAME="1111"
+export JENKINS_PLATID=$platId
+export JENKINS_APP_NAME=$appName
+export JENKINS_DOMAIN1=$domain1
+export JENKINS_DOMAIN2=$domain2
+export JENKINS_DOMAIN3=$domain3
+export JENKINS_PLATNAME=$platName
 
 # vars - 下方腳本所使用之變數
 export PLATID=$JENKINS_PLATID
@@ -28,11 +28,11 @@ export JENKINS_WORKSPACE=$WORKSPACE
 if [[ -n "$JENKINS_WORKSPACE" ]]; then
     echo "Use Jenkins Build !"
     export WS=$JENKINS_WORKSPACE
-    export EXPORTS="/Users/apphwao/Project/app/exports/$PLATID"
-    export PHOTO_LOCATION="/Users/apphwao/Project/app"
-    export PROJECT_LOCATION="/Users/apphwao/Project"
+    export EXPORTS="$HOME/Project/app/exports/$PLATID"
+    export PHOTO_LOCATION="$HOME/Project/app"
+    export PROJECT_LOCATION="$HOME/Project"
     export BUILD_TOOLS="$WS/build_tools"
-    export USER_HOME="/Users/apphwao"
+    export USER_HOME=$HOME
 else
     echo "Use Local Build !"
     export WS=$PWD
@@ -196,8 +196,8 @@ if [ ! -f $PHOTO_LOCATION/launcher.png ]; then
     echo "############"
     exit 1
 fi
-if [ ! -d /Users/apphwao/Project/app/exports/$platId ] && [[ -n "$JENKINS_WORKSPACE" ]]; then
-    mkdir -p /Users/apphwao/Project/app/exports/$platId
+if [ ! -d $USER_HOME/Project/app/exports/$platId ] && [[ -n "$JENKINS_WORKSPACE" ]]; then
+    mkdir -p $USER_HOME/Project/app/exports/$platId
 fi
 # vars
 DATE=$(date +%Y%m%d%H%M)
