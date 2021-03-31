@@ -501,7 +501,7 @@ const MainWebview = (myWebView) => {
                 setExpendStatus(false);
                 setIsBestIp(true);
               }}>
-              <View style={mergedSubStyle}>
+              <View style={{ ...styles.labelWrap, ...mergedSubStyle}}>
                 <Text style={styles.label}>换线路</Text>
               </View>
             </TouchableOpacity>
@@ -515,7 +515,7 @@ const MainWebview = (myWebView) => {
                     setExpendStatus(false);
                     changeLane(index);
                   }}>
-                  <View style={mergedSubStyle} key={`${url}-${index}`}>
+                  <View style={{ ...styles.labelWrap, ...mergedSubStyle}} key={`${url}-${index}`}>
                     <Text style={styles.label}>线路{index + 1}</Text>
                   </View>
                 </TouchableOpacity>
@@ -525,8 +525,8 @@ const MainWebview = (myWebView) => {
               onPress={async () => {
                 setModalVisible(true);
               }}>
-              <View style={{...mergedSubStyle, backgroundColor: '#8ce609'}}>
-                <Text style={styles.label}>版本</Text>
+              <View style={{ ...styles.labelWrap, ...mergedSubStyle, backgroundColor: '#8ce609'}}>
+                  <Text style={styles.label}>版本</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -579,7 +579,7 @@ const MainWebview = (myWebView) => {
                   <Text style={styles.modalLabel}>{DeviceInfo.getUniqueId()}</Text>
                 </View>
               </View>
-              <View key="d_5" style={styles.modalBlock}>
+              {/* <View key="d_5" style={styles.modalBlock}>
                 <View style={styles.modalLabelTop}>
                   <Text style={styles.modalLabel}>客户资讯:</Text>
                 </View>
@@ -588,24 +588,7 @@ const MainWebview = (myWebView) => {
                 <View style={styles.modalLabelTop}>
                   <Text style={styles.modalLabel}>{navigator.userAgent}</Text>
                 </View>
-              </View>
-              {
-                Object.keys(latencyMsObj).map((key, i) => {
-                  const quality = getConnectionQuality(latencyMsObj[i].ms);
-                  const color = getNetworkQualityColorByClass(getNetworkQualityClass(quality));
-                  return (
-                    <View key={`d_${13 + i}`} style={styles.latencyBarWrap}>
-                      <Text style={styles.modalLabel}>
-                        线路{i + 1}: {urlList[i]}
-                      </Text>
-                      <Text style={styles.modalLabel}>
-                        {latencyMsObj[i].text}
-                      </Text>
-                      <ProgressBar key={`pb_${0 + i}`} progress={quality} width={null} color={color} />
-                    </View>
-                  );
-                })
-              }
+              </View> */}
               <View style={styles.modalBtnsWrap}>
                 <TouchableOpacity
                   style={{ ...styles.modalBackBtn, backgroundColor: '#1579d6' }}
@@ -647,6 +630,23 @@ const MainWebview = (myWebView) => {
                   </View>
                 </TouchableOpacity>
               </View>
+              {
+                Object.keys(latencyMsObj).map((key, i) => {
+                  const quality = getConnectionQuality(latencyMsObj[i].ms);
+                  const color = getNetworkQualityColorByClass(getNetworkQualityClass(quality));
+                  return (
+                    <View key={`d_${13 + i}`} style={styles.latencyBarWrap}>
+                      <Text style={styles.modalLabel}>
+                        线路{i + 1}: {urlList[i]}
+                      </Text>
+                      <Text style={styles.modalLabel}>
+                        {latencyMsObj[i].text}
+                      </Text>
+                      <ProgressBar key={`pb_${0 + i}`} progress={quality} width={null} color={color} />
+                    </View>
+                  );
+                })
+              }
               {
                 Object.keys(errors).map((key, i) => {
                   if (!errors[key]) return null;
@@ -720,10 +720,14 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 2,
   },
+  labelWrap: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   label: {
-    fontSize: 15,
     textAlign: 'center',
-    marginTop: 14,
+    fontSize: 15,
     color: '#FFF',
     fontWeight: 'bold',
   },
@@ -762,13 +766,11 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   modalBackBtn: {
-    margin: 10,
     display: 'flex',
     padding: 10,
+    width: '40%',
     textAlign: 'center',
     backgroundColor: '#F00',
-    marginLeft: '20%',
-    marginRight: '20%',
   },
   latencyBarWrap: {
     textAlign: 'right',
@@ -776,6 +778,9 @@ const styles = StyleSheet.create({
     marginBottom: 7,
   },
   modalBtnsWrap: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
     marginTop: 15,
     marginBottom: 15,
   },
