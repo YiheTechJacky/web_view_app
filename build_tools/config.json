@@ -1,9 +1,17 @@
 {
-  "initJavascript" : "(function () {window.isNativeApp = true;})();",
-  "domainNamePrefix" : "domain1",
+  "initJavascript": "(function () {window.isNativeApp = true;})();",
+  "domainNamePrefix": "domain1",
   "platName": "pid",
-  "urlList" : [ 
+  "urlList": [ 
     "https://domain1/#/",
     "https://domain2/#/",
-    "https://domain3/#/"]
+    "https://domain3/#/",
+    "https://domain4/#/",
+    "https://domain5/#/",
+    "https://domain6/#/",
+    "https://domain7/#/",
+    "https://domain8/#/",
+    "https://domain9/#/",
+    "https://domain10/#/"
+  ],
 }
