@@ -71,6 +71,7 @@ const MainWebview = (myWebView) => {
     setCurLane(i);
     setCurrentSiteUrl(urlList[i]);
   };
+  const [isBestIp, setIsBestIp] = useState(true);
 
   //
   // navbar related
@@ -155,23 +156,14 @@ const MainWebview = (myWebView) => {
   const [isFireThreeLanesDetectLoading, setIsFireThreeLanesDetectLoading] = useState(false);
   const genLatencyMsObj = useCallback(
     (text) => {
-      return {
-        0: {
+      return urlList.reduce((acc, { text }, index) => {
+        acc[index] = {
           url: '',
           text,
           ms: Infinity,
-        },
-        1: {
-          url: '',
-          text,
-          ms: Infinity,
-        },
-        2: {
-          url: '',
-          text,
-          ms: Infinity,
-        },
-      };
+        }
+        return acc;
+      }, {})
     },
   );
   const [latencyMsObj, setLatencyMsObj] = useState(genLatencyMsObj('尚未检测'));
@@ -248,7 +240,7 @@ const MainWebview = (myWebView) => {
   // make sure we can go to the best lane
   //
   useEffect(() => {
-    async function getBestIp() {
+    async function getBestIp(cb) {
       const result = await promiseAny(urlList.map((url) => {
         return pingIp({ url })
       }));
@@ -256,9 +248,14 @@ const MainWebview = (myWebView) => {
       if (urlIndex !== -1) {
         changeLane(urlIndex);
       }
+      if (cb) cb();
     }
-    getBestIp();
-  }, []);
+    if (isBestIp) {
+      getBestIp(() => {
+        setIsBestIp(false);
+      });
+    }
+  }, [isBestIp, setIsBestIp]);
 
   //
   // btn functions
@@ -498,7 +495,17 @@ const MainWebview = (myWebView) => {
                 />
               </TouchableOpacity>
             </View>
-            {urlList.map((url, index) => {
+            <TouchableOpacity
+              onPress={() => {
+                setFloatIcon(faPlus);
+                setExpendStatus(false);
+                setIsBestIp(true);
+              }}>
+              <View style={mergedSubStyle}>
+                <Text style={styles.label}>换线路</Text>
+              </View>
+            </TouchableOpacity>
+            {/* {urlList.map((url, index) => {
               if (index === curLane) return null;
               return (
                 <TouchableOpacity
@@ -513,7 +520,7 @@ const MainWebview = (myWebView) => {
                   </View>
                 </TouchableOpacity>
               );
-            })}
+            })} */}
             <TouchableOpacity
               onPress={async () => {
                 setModalVisible(true);
@@ -615,7 +622,7 @@ const MainWebview = (myWebView) => {
                     }
                   </View>
                 </TouchableOpacity>
-                <TouchableOpacity
+                {/* <TouchableOpacity
                   style={{ ...styles.modalBackBtn, backgroundColor: '#338833' }}
                   onPress={() => {
                     if (!isFireThreeLanesDetectLoading && !uploadReport) {
@@ -629,7 +636,7 @@ const MainWebview = (myWebView) => {
                       : <Text style={{...styles.label, marginTop: 0}}>上报检测</Text>
                     }
                   </View>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 <TouchableOpacity
                   style={styles.modalBackBtn}
                   onPress={() => {
@@ -758,7 +765,6 @@ const styles = StyleSheet.create({
     margin: 10,
     display: 'flex',
     padding: 10,
-    textAlign: 'center',
     textAlign: 'center',
     backgroundColor: '#F00',
     marginLeft: '20%',
