@@ -10,7 +10,7 @@
 	<string>development</string>
 	<key>provisioningProfiles</key>
 	<dict>
-		<key>com.hw4.appplatId</key>
+		<key>com.yihe.appplatId</key>
 		<string>dev-com.hw.star</string>
 	</dict>
 	<key>signingStyle</key>
