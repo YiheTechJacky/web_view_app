@@ -382,7 +382,7 @@ const MainWebview = (myWebView) => {
         isPageLoaded ? (
           <Navbar
             title={headerTitle}
-            style={navbarVisiblity}
+            style={{ backgroundColor: "white"}}
             backKeyPressed={backKeyPressed}
             reloadKeyPressed={reloadKeyPressed}
             curLane={curLane}
@@ -467,7 +467,7 @@ const MainWebview = (myWebView) => {
           });
         }}
       />
-      {isFloatBtnShow && (
+      {false && (
         <Draggable
           x={floatBtnDefaultPos.x}
           y={floatBtnDefaultPos.y}

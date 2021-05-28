@@ -45,7 +45,7 @@ const App: () => React$Node = () => {
 
 const styles = StyleSheet.create({
   statusBarArea: {
-    backgroundColor: shadow,
+    backgroundColor: "white",
   },
   container: {
     flex: 1,

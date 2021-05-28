@@ -17,7 +17,7 @@ const Navbar = (props) => {
         <FontAwesomeIcon style={textStyle} icon={faChevronLeft} size={20} />
         <Text style={{ ...textStyle, ...mt5 }}>返回</Text>
       </TouchableOpacity>
-      <Text numberOfLines={1} style={{ ...textStyle, ...mr7, ...title }}>
+      {/* <Text numberOfLines={1} style={{ ...textStyle, ...mr7, ...title }}>
         {props.title}
       </Text>
       <TouchableOpacity
@@ -27,7 +27,7 @@ const Navbar = (props) => {
         }}>
         <View style={rightFloatTextWrapper}><Text style={rightFloatText}>线路{props.curLane + 1}</Text></View>
         <FontAwesomeIcon style={textStyle} icon={faUndo} size={20} />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };
@@ -39,15 +39,15 @@ const {
 const styles = StyleSheet.create({
   navbarStyle: {
     backgroundColor: shadow,
-    height: 46,
+    height: 15,
     paddingLeft: 10,
     paddingRight: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   textStyle: {
-    marginTop: 13,
-    color: normal,
+    marginTop: -7,
+    color: "#3493ff",
     maxWidth: 200,
   },
   backBtnWrapper: {
@@ -55,7 +55,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   mt5: {
-    marginTop: 15,
+    marginTop: -5,
+    color: "#3493ff",
   },
   mr7: {
     marginRight: 20,
