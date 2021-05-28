@@ -394,7 +394,10 @@ const MainWebview = (myWebView) => {
         source={curLane !== null ? { uri: urlList[curLane] } : { html: loadingPageHtml }}
         style={getDisplayStyle(isPageLoaded)}
         onMessage={(event) => {
-          console.log(event.nativeEvent.data);
+          const { type, data } = JSON.parse(event.nativeEvent.data);
+          if (type === "openLink") {
+            Linking.openURL(data.url);
+          }
         }}
         onLoad={(event) => {
           console.log('onLoad');

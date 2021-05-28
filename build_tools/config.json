@@ -1,5 +1,5 @@
 {
-  "initJavascript": "(function () {window.isNativeApp = true;})();",
+  "initJavascript": "(function () {})();",
   "domainNamePrefix": "domain1",
   "platName": "pid",
   "urlList": [ 

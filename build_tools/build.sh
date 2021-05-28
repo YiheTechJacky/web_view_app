@@ -3,7 +3,7 @@ export LANG=en_US.UTF-8
 
 # apple related vars - 此區塊與開發者帳號相關
 export BUNDLEID_SCOPE="com.yihe.app"
-export DEVELOPERTEAM="J7FN9F3P3U"
+export DEVELOPERTEAM="J7NF9F3P3U"
 
 # jenkins vars - 此區塊對接jenkins不可變動
 export JENKINS_PLATID=$platId

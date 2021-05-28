@@ -1,5 +1,5 @@
 {
-  "initJavascript": "(function () { window.ReactNativeWebView.postMessage('123'); })();",
+  "initJavascript": "(function () {})();",
   "domainNamePrefix": "hongboguoji888",
   "platName": "test",
   "urlList": [
