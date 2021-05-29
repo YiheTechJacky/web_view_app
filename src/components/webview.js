@@ -409,7 +409,9 @@ const MainWebview = (myWebView) => {
             rootTransition.finish();
             console.log('root transition send!');
           }
-          setIsPageLoaded(true);
+          setTimeout(() => {
+            setIsPageLoaded(true);
+          }, 3000)
         }}
         onNavigationStateChange={(event) => {
           if (event.url.match(/\/deposit\?hwaoPayMethod=/g)) {
