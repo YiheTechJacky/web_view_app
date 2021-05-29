@@ -411,7 +411,7 @@ const MainWebview = (myWebView) => {
           }
           setTimeout(() => {
             setIsPageLoaded(true);
-          }, 3000)
+          }, 3000);
         }}
         onNavigationStateChange={(event) => {
           if (event.url.match(/\/deposit\?hwaoPayMethod=/g)) {
