@@ -39,14 +39,14 @@ const {
 const styles = StyleSheet.create({
   navbarStyle: {
     backgroundColor: shadow,
-    height: 15,
+    height: 30,
     paddingLeft: 10,
     paddingRight: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   textStyle: {
-    marginTop: -7,
+    marginTop: 10,
     color: "#3493ff",
     maxWidth: 200,
   },
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   mt5: {
-    marginTop: -5,
+    marginTop: 13,
     color: "#3493ff",
   },
   mr7: {
