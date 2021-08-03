@@ -19,7 +19,8 @@ export JENKINS_DOMAIN8=$domain8
 export JENKINS_DOMAIN9=$domain9
 export JENKINS_DOMAIN10=$domain10
 export JENKINS_PLATNAME=$platName
-export JENKINS_CODE_PUSH_DEVELOPMENT_KEY=$codePushDevelopmentKey
+export JENKINS_APP_IOS_CODE_PUSH_DEPLOYMENT_KEY=$appIosCodePushDeploymentKey
+export JENKINS_APP_ANDROID_CODE_PUSH_DEPLOYMENT_KEY=$appAndroidCodePushDeploymentKey
 
 
 # vars - 下方腳本所使用之變數
@@ -37,7 +38,8 @@ export DOMAIN_8=$JENKINS_DOMAIN8
 export DOMAIN_9=$JENKINS_DOMAIN9
 export DOMAIN_10=$JENKINS_DOMAIN10
 export PLATNAME=$JENKINS_PLATNAME
-export CODE_PUSH_DEVELOPMENT_KEY=$JENKINS_CODE_PUSH_DEVELOPMENT_KEY
+export APP_IOS_CODE_PUSH_DEPLOYMENT_KEY=$JENKINS_APP_IOS_CODE_PUSH_DEPLOYMENT_KEY
+export APP_ANDROID_CODE_PUSH_DEPLOYMENT_KEY=$JENKINS_APP_ANDROID_CODE_PUSH_DEPLOYMENT_KEY
 
 # 使用jenkins會有$WORKSPACE變數
 export JENKINS_WORKSPACE=$WORKSPACE
@@ -110,12 +112,14 @@ applicationConfig() {
     # Android
     sed -i "" "s/platId/$PLATID/g" $BUILD_TOOLS/build.gradle
     sed -i "" "s/appName/$APP_NAME/g" $BUILD_TOOLS/strings.xml
-    sed -i "" "s/appCodePushDevelopmentKey/$CODE_PUSH_DEVELOPMENT_KEY/g" $BUILD_TOOLS/strings.xml
+    sed -i "" "s/appAndroidCodePushDeploymentKey/$APP_ANDROID_CODE_PUSH_DEPLOYMENT_KEY/g" $BUILD_TOOLS/strings.xml
+    sed -i "" "s/appAndroidCodePushDeploymentKey/$APP_ANDROID_CODE_PUSH_DEPLOYMENT_KEY/g" $BUILD_TOOLS/appcenter-config.json
     cp $BUILD_TOOLS/build.gradle $WS/android/app/build.gradle
     cp $BUILD_TOOLS/strings.xml $WS/android/app/src/main/res/values/strings.xml
     # iOS
     sed -i "" "s/appName/$APP_NAME/g" $BUILD_TOOLS/Info.plist
-    sed -i "" "s/appCodePushDevelopmentKey/$CODE_PUSH_DEVELOPMENT_KEY/g" $BUILD_TOOLS/Info.plist
+    sed -i "" "s/appIosCodePushDeploymentKey/$APP_IOS_CODE_PUSH_DEPLOYMENT_KEY/g" $BUILD_TOOLS/Info.plist
+    sed -i "" "s/appIosCodePushDeploymentKey/$APP_IOS_CODE_PUSH_DEPLOYMENT_KEY/g" $BUILD_TOOLS/AppCenter-Config.plist
     sed -i "" "s/platId/$PLATID/g" $BUILD_TOOLS/project.pbxproj
     sed -i "" "s/platId/$PLATID/g" $BUILD_TOOLS/ExportOptions.plist
     sed -i "" "s/DEVELOPERTEAM/$DEVELOPERTEAM/g" $BUILD_TOOLS/project.pbxproj
