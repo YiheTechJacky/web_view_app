@@ -33,11 +33,8 @@ const {
 const App: () => React$Node = () => {
   return (
     <>
-      <SafeAreaView style={styles.statusBarArea} />
-      <SafeAreaView style={styles.container}>
-        <GeneralStatusBarColor backgroundColor={shadow} barStyle="light-content" />
-        <MainWebview />
-      </SafeAreaView>
+      <GeneralStatusBarColor backgroundColor={shadow} barStyle="light-content" />
+      <MainWebview />
     </>
   );
 };

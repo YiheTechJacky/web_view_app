@@ -2,22 +2,24 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  Button,
   Platform,
   ProgressBarAndroid,
   ProgressViewIOS,
   ImageBackground,
   SafeAreaView,
   Dimensions,
+  ActivityIndicator,
 } from 'react-native';
 import codePush from 'react-native-code-push';
+import bg from './src/assets/launchscreen.jpg';
+import App from "./App";
 
 const CssTheme = {
   colorPrimary: 'blue',
   colorSecondary: 'red',
   colorPositive: 'green',
   colorNegative: 'red',
-  colorText: 'black',
+  colorText: 'white',
   colorTextLight: 'grey',
 };
 
@@ -35,7 +37,7 @@ const CssBtn = {
     paddingRight: 5,
   },
   defaultText: {
-    color: CssTheme.colorPrimary,
+    color: CssTheme.colorText,
     textAlign: 'center',
     lineHeight: 36,
   },
@@ -245,10 +247,9 @@ const CssLoading = {
     alignSelf: 'center',
   },
   topAreaTitle: {
-    color: CssTheme.colorPrimary,
+    color: CssTheme.colorText,
     fontSize: 18,
     alignSelf: 'center',
-    margin: 10,
   },
   topAreaContent: {
     color: CssTheme.colorPrimary,
@@ -323,9 +324,15 @@ const CssModal = {
     right: 6,
   },
   body: {
-    padding: 12,
-    maxHeight: 500,
+    borderRadius: 15,
+    borderColor: CssTheme.colorTextLight,
+    borderWidth: 2,
+    height: 160,
+    padding: 20,
+    margin: 50,
     maxWidth: '100%',
+    backgroundColor: 'black',
+    opacity: 0.8,
   },
   bodyText: {
     textAlign: 'center',
@@ -469,10 +476,10 @@ class CodePush extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      closeHotUpdateDialog: false,
+      isAppShow: false,
       update: false,
       restart: false,
-      updateDescription: '请按下更新按钮',
+      updateDescription: '',
       syncMessage: '',
       syncStatus: null,
       restartAllowed: true,
@@ -480,7 +487,7 @@ class CodePush extends Component {
     };
   }
 
-  componentWillMount = () => {
+  componentDidMount = () => {
     this.checkUpdate();
   }
 
@@ -512,19 +519,25 @@ class CodePush extends Component {
       this.syncUpdate();
     }
     if (prevState.restart !== restart && restart) {
-      codePush.restartApp();
+      setTimeout(() => {
+        codePush.restartApp();
+      }, 2000)
     }
   }
 
-  checkUpdate = async () => {
+  checkUpdate = () => {
     codePush.checkForUpdate()
       .then((needUpdate) => {
         if (needUpdate !== null) {
           this.setState({
-            updateDescription: needUpdate.description || '请按下更新按钮',
+            updateDescription: needUpdate.description,
+          });
+        } else {
+          this.setState({
+            isAppShow: true,
           });
         }
-      });
+      })
   }
 
   codePushStatusDidChange = (syncStatus) => {
@@ -556,13 +569,13 @@ class CodePush extends Component {
         break;
       case codePush.SyncStatus.UP_TO_DATE:
         this.setState({
-          syncMessage: 'APP为最新版本',
+          syncMessage: '已为最新版本，正在进入APP...',
           progress: false,
         });
         break;
       case codePush.SyncStatus.UPDATE_INSTALLED:
         this.setState({
-          syncMessage: '更新完成并于重启APP后生效.',
+          syncMessage: '更新完成，正在重启APP',
           progress: false,
           restart: true,
         });
@@ -629,7 +642,10 @@ class CodePush extends Component {
   }
 
   render() {
-    let progressView;
+    console.log(this.state.isAppShow);
+    if (this.state.isAppShow) return <App />;
+
+    let progressView = <ActivityIndicator color={CssTheme.colorText} />;
     const {
       progress, syncMessage, update, showCloseBtn, updateDescription, appUpdateDialogShow,
     } = this.state;
@@ -639,12 +655,14 @@ class CodePush extends Component {
       const { receivedBytes, totalBytes } = progress;
       const progressBar = Math.floor(receivedBytes / totalBytes * 100) / 100;
       progressView = (Platform.OS === 'android')
-        ? (<ProgressBarAndroid styleAttr="Horizontal" progress={progressBar} indeterminate={false} />)
-        : (<ProgressViewIOS progress={progressBar} />);
+        ? (<ProgressBarAndroid styleAttr="Horizontal" color={CssTheme.colorText} progress={progressBar} indeterminate={false} />)
+        : (<ProgressViewIOS color={CssTheme.colorText} progress={progressBar} />);
     }
+
     return (
       <View style={{ flex: 1 }}>
         <ImageBackground
+          source={bg}
           imageStyle={CssLoading.loadingViewBg}
           style={CssLoading.loadingView}
         >
@@ -657,11 +675,11 @@ class CodePush extends Component {
                 marginTop: (Dimensions.get('window').height / 4),
               }}
             >
-              <View>
-                <Text style={CssLoading.topAreaTitle}>系统更新</Text>
-              </View>
               {/* body */}
               <View style={{ ...CssModal.body }}>
+                <View>
+                  <Text style={CssLoading.topAreaTitle}>系统更新</Text>
+                </View>
                 <View>
                   <Text style={CssBtn.defaultText}>{updateDescription}</Text>
                   {
@@ -674,38 +692,6 @@ class CodePush extends Component {
                   }
                   {progressView}
                 </View>
-              </View>
-              {/* footer */}
-              <View style={CssModal.footer}>
-                {
-                  showCloseBtn ? (
-                    <Button
-                      disabled={update}
-                      type="line"
-                      title="关闭"
-                      style={{
-                        wrapper: { ...CssBtn.default, ...CssModal.footerBtn }
-                        ,
-                      }}
-                      onPress={() => {
-                        dispatchSetUpdateDialogShow(false);
-                      }}
-                    />
-                  ) : (
-                    <Button
-                      disabled={update}
-                      type="line"
-                      title="更新"
-                      style={{
-                        wrapper: { ...CssBtn.default, ...CssModal.footerBtn }
-                        ,
-                      }}
-                      onPress={() => {
-                        this.setState({ update: true });
-                      }}
-                    />
-                  )
-                }
               </View>
             </View>
           </SafeAreaView>

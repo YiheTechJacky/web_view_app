@@ -378,16 +378,15 @@ const MainWebview = (myWebView) => {
 
   return (
     <View style={styles.container}>
+      {/* <Navbar
+        title={headerTitle}
+        style={{ backgroundColor: "white"}}
+        backKeyPressed={backKeyPressed}
+        reloadKeyPressed={reloadKeyPressed}
+        curLane={curLane}
+      /> */}
       {
-        isPageLoaded ? (
-          <Navbar
-            title={headerTitle}
-            style={{ backgroundColor: "white"}}
-            backKeyPressed={backKeyPressed}
-            reloadKeyPressed={reloadKeyPressed}
-            curLane={curLane}
-          />
-        ) : <Image source={launchscreen} style={styles.launchscreen} />
+        !isPageLoaded && <Image source={launchscreen} style={styles.launchscreen} />
       }
       <WebView
         ref={(ref) => (myWebView = ref)}
