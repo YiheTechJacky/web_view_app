@@ -3,6 +3,6 @@
 <plist version="1.0">
     <dict>
     <key>AppSecret</key>
-    <string>appIosCodePushDeploymentKey</string>
+    <string>appIosAppCenterKey</string>
     </dict>
 </plist>

@@ -462,8 +462,8 @@ const CssModal = {
   },
 };
 
-const codePushOptions = { checkFrequency: codePush.CheckFrequency.MANUAL }; // 手动检查
-// const codePushOptions = { checkFrequency: codePush.CheckFrequency.ON_APP_RESUME }; // app从后台切换过来时
+// const codePushOptions = { checkFrequency: codePush.CheckFrequency.MANUAL }; // 手动检查
+const codePushOptions = { checkFrequency: codePush.CheckFrequency.ON_APP_START }; // app从后台切换过来时
 
 class CodePush extends Component {
   constructor(props) {
