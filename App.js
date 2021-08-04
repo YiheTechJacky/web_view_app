@@ -30,11 +30,11 @@ const {
   colors: { shadow },
 } = ColorPattern;
 
-const App: () => React$Node = () => {
+const App = ({ appDomain }) => {
   return (
     <>
       <GeneralStatusBarColor backgroundColor={shadow} barStyle="light-content" />
-      <MainWebview />
+      <MainWebview appDomain={appDomain} />
     </>
   );
 };

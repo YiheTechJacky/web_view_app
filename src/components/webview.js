@@ -34,7 +34,6 @@ const packageJSON = require('../../package.json');
 const launchscreen = require('../assets/launchscreen.jpg');
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
-const {urlList} = config;
 const {
   colors: {shadow},
 } = ColorPattern;
@@ -49,7 +48,7 @@ const loadingPageHtml = `
 </html>
 `;
 
-const MainWebview = (myWebView) => {
+const MainWebview = ({ appDomain }) => {
   const [rootTransition, setRootTransition] = useState(null);
   useEffect(() => {
     if (!rootTransition) {
@@ -69,7 +68,7 @@ const MainWebview = (myWebView) => {
   const [currentSiteUrl, setCurrentSiteUrl] = useState('');
   const changeLane = (i) => {
     setCurLane(i);
-    setCurrentSiteUrl(urlList[i]);
+    setCurrentSiteUrl(appDomain[i]);
   };
   const [isBestIp, setIsBestIp] = useState(true);
 
@@ -156,7 +155,7 @@ const MainWebview = (myWebView) => {
   const [isFireThreeLanesDetectLoading, setIsFireThreeLanesDetectLoading] = useState(false);
   const genLatencyMsObj = useCallback(
     (text) => {
-      return urlList.reduce((acc, { text }, index) => {
+      return appDomain.reduce((acc, { text }, index) => {
         acc[index] = {
           url: '',
           text,
@@ -177,7 +176,7 @@ const MainWebview = (myWebView) => {
       latencyMsObjRef.current = genLatencyMsObj('检测中...');
       
       function threeLaneDetectation() {
-        return Promise.all(urlList.map((url, index) => {
+        return Promise.all(appDomain.map((url, index) => {
           return pingIp({ url })
             .then(({ ms }) => {
               latencyMsObjRef.current = {
@@ -241,10 +240,10 @@ const MainWebview = (myWebView) => {
   //
   useEffect(() => {
     async function getBestIp(cb) {
-      const result = await promiseAny(urlList.map((url) => {
+      const result = await promiseAny(appDomain.map((url) => {
         return pingIp({ url })
       }));
-      const urlIndex = urlList.indexOf(result.url);
+      const urlIndex = appDomain.indexOf(result.url);
       if (urlIndex !== -1) {
         changeLane(urlIndex);
       }
@@ -390,7 +389,7 @@ const MainWebview = (myWebView) => {
       }
       <WebView
         ref={(ref) => (myWebView = ref)}
-        source={curLane !== null ? { uri: urlList[curLane] } : { html: loadingPageHtml }}
+        source={curLane !== null ? { uri: appDomain[curLane] } : { html: loadingPageHtml }}
         style={getDisplayStyle(isPageLoaded)}
         onMessage={(event) => {
           const { type, data } = JSON.parse(event.nativeEvent.data);
@@ -509,7 +508,7 @@ const MainWebview = (myWebView) => {
                 <Text style={styles.label}>换线路</Text>
               </View>
             </TouchableOpacity>
-            {/* {urlList.map((url, index) => {
+            {/* {appDomain.map((url, index) => {
               if (index === curLane) return null;
               return (
                 <TouchableOpacity
@@ -641,7 +640,7 @@ const MainWebview = (myWebView) => {
                   return (
                     <View key={`d_${13 + i}`} style={styles.latencyBarWrap}>
                       <Text style={styles.modalLabel}>
-                        线路{i + 1}: {urlList[i]}
+                        线路{i + 1}: {appDomain[i]}
                       </Text>
                       <Text style={styles.modalLabel}>
                         {latencyMsObj[i].text}

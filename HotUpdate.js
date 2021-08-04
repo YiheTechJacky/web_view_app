@@ -13,6 +13,8 @@ import {
 import codePush from 'react-native-code-push';
 import bg from './src/assets/launchscreen.jpg';
 import App from "./App";
+import domainList from './domainList';
+import config from './src/statics/config.json';
 
 const CssTheme = {
   colorPrimary: 'blue',
@@ -484,33 +486,19 @@ class CodePush extends Component {
       syncStatus: null,
       restartAllowed: true,
       showCloseBtn: false,
+      appDomain: [],
     };
   }
 
-  componentDidMount = () => {
-    this.checkUpdate();
-  }
-
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const {
-      updateDescription, syncMessage, update, syncStatus, progress,
-    } = this.state;
-    if (nextState.update !== update && nextState.update) {
-      return true;
+  componentDidMount = async () => {
+    const needUpdate = await this.checkUpdate();
+    if (needUpdate !== null) {
+      this.setState({
+        updateDescription: needUpdate.description,
+      });
+    } else {
+      await this.getCmsConfig();
     }
-    if (nextState.updateDescription !== updateDescription) {
-      return true;
-    }
-    if (nextState.syncMessage !== syncMessage) {
-      return true;
-    }
-    if (nextState.syncStatus !== syncStatus) {
-      return true;
-    }
-    if (nextState.progress !== progress) {
-      return true;
-    }
-    return false;
   }
 
   componentDidUpdate = (prevProps, prevState) => {
@@ -525,23 +513,46 @@ class CodePush extends Component {
     }
   }
 
+  getCmsConfig = () => {
+    let index = 0;
+    const fetchCmsConfig = (i) => {
+      const url = domainList[config.platName][i];
+      if (url) {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', `${url}/api/pc/cms-config`, true);
+        xhr.setRequestHeader('referer', url);
+        xhr.onload = () => {
+          if (xhr.readyState === 4) {
+            if (xhr.status < 400) {
+              console.log(JSON.parse(xhr.response).result.appDomain);
+              this.setState({
+                appDomain: JSON.parse(xhr.response).result.appDomain,
+              });
+              xhr.abort();
+            } else {
+              index++;
+              fetchCmsConfig(index);
+              xhr.abort();
+            }
+            xhr.abort();
+          }
+        };
+        xhr.ontimeout = () => {
+          index++;
+          fetchCmsConfig(index);
+        };
+        xhr.onerror = () => {
+          index++;
+          fetchCmsConfig(index);
+        };
+        xhr.send(null);
+      }
+    }
+    fetchCmsConfig(index);
+  }
+
   checkUpdate = () => {
-    codePush.checkForUpdate()
-      .then((needUpdate) => {
-        if (needUpdate !== null) {
-          this.setState({
-            updateDescription: needUpdate.description,
-          });
-        } else {
-          this.setState({
-            isAppShow: true,
-          });
-        }
-      }).catch(() => {
-        this.setState({
-          isAppShow: true,
-        });
-      })
+    return codePush.checkForUpdate();
   }
 
   codePushStatusDidChange = (syncStatus) => {
@@ -575,6 +586,7 @@ class CodePush extends Component {
         this.setState({
           syncMessage: '已为最新版本，正在进入APP...',
           progress: false,
+          isAppShow: true,
         });
         break;
       case codePush.SyncStatus.UPDATE_INSTALLED:
@@ -646,8 +658,8 @@ class CodePush extends Component {
   }
 
   render() {
-    console.log(this.state.isAppShow);
-    if (this.state.isAppShow) return <App />;
+    console.log(this.state);
+    if (this.state.isAppShow && this.state.appDomain.length) return <App appDomain={this.state.appDomain} />;
 
     let progressView = <ActivityIndicator color={CssTheme.colorText} />;
     const {
