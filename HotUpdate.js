@@ -537,6 +537,10 @@ class CodePush extends Component {
             isAppShow: true,
           });
         }
+      }).catch(() => {
+        this.setState({
+          isAppShow: true,
+        });
       })
   }
 
