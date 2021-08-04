@@ -77,3 +77,27 @@ icon.png 及 launcher.png 放在此專案跟目錄(跟 package.json 同層)
 
 
 執行 sh build_tools/build.sh
+
+## CodePush指令
+
+1.登入appcenter帳號
+```
+appcenter login
+```
+2.查看app
+```
+appcenter apps list
+```
+3.查看app之熱更key
+```
+appcenter codepush deployment list -k --app jacky-yihetech168.com/yihe_web_view_app
+```
+4.熱更新版
+```
+appcenter codepush release-react -a jacky-yihetech168.com/yihe_web_view_app -d Production -t 2.0.5
+
+-a 指定app
+-d 指定環境
+-t 指定版本號碼
+```
+
