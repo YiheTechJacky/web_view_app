@@ -119,6 +119,8 @@ applicationConfig() {
     sed -i "" "s/appAndroidAppCenterKey/$APP_ANDROID_APP_CENTER_KEY/g" $BUILD_TOOLS/appcenter-config.json
     cp $BUILD_TOOLS/build.gradle $WS/android/app/build.gradle
     cp $BUILD_TOOLS/strings.xml $WS/android/app/src/main/res/values/strings.xml
+    cp $BUILD_TOOLS/appcenter-config.json $WS/android/app/src/main/assets/appcenter-config.json
+
     # iOS
     sed -i "" "s/appName/$APP_NAME/g" $BUILD_TOOLS/Info.plist
     sed -i "" "s/appIosCodePushDeploymentKey/$APP_IOS_CODE_PUSH_DEPLOYMENT_KEY/g" $BUILD_TOOLS/Info.plist
@@ -132,6 +134,7 @@ applicationConfig() {
     cp $BUILD_TOOLS/project.pbxproj $WS/ios/webview_app.xcodeproj/project.pbxproj
     cp $BUILD_TOOLS/Info.plist $WS/ios/webview_app/Info.plist
     cp $BUILD_TOOLS/ExportOptions.plist $WS/ios
+    cp $BUILD_TOOLS/AppCenter-Config.plist $WS/ios/webview_app/AppCenter-Config.plist
 }
 
 iconAssets() {
