@@ -33,8 +33,10 @@ const {
 const App = ({ appDomain }) => {
   return (
     <>
-      <GeneralStatusBarColor backgroundColor={shadow} barStyle="light-content" />
-      <MainWebview appDomain={appDomain} />
+      <SafeAreaView style={styles.container}>
+        <GeneralStatusBarColor backgroundColor={shadow} barStyle="light-content" />
+        <MainWebview appDomain={appDomain} />
+      </SafeAreaView>
     </>
   );
 };
@@ -42,11 +44,11 @@ const App = ({ appDomain }) => {
 
 const styles = StyleSheet.create({
   statusBarArea: {
-    backgroundColor: "white",
+    backgroundColor: shadow,
   },
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: shadow,
   },
 });
 
