@@ -487,6 +487,7 @@ class CodePush extends Component {
       restartAllowed: true,
       showCloseBtn: false,
       appDomain: [],
+      suckMydick: true,
     };
   }
 
