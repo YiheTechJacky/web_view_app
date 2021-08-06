@@ -10,7 +10,7 @@
 	<string>development</string>
 	<key>provisioningProfiles</key>
 	<dict>
-		<key>com.yihe.appplatId</key>
+		<key>BUNDLEID</key>
 		<string>dev-com.hw.star</string>
 	</dict>
 	<key>signingStyle</key>
@@ -18,7 +18,7 @@
 	<key>stripSwiftSymbols</key>
 	<true/>
 	<key>teamID</key>
-	<string>BUNDLEID</string>
+	<string>DEVELOPERTEAM</string>
 	<key>thinning</key>
 	<string>&lt;none&gt;</string>
 </dict>
