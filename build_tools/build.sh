@@ -8,16 +8,6 @@ export DEVELOPERTEAM="XG4C3UYMBY"
 # jenkins vars - 此區塊對接jenkins不可變動
 export JENKINS_PLATID=$platId
 export JENKINS_APP_NAME=$appName
-export JENKINS_DOMAIN1=$domain1
-export JENKINS_DOMAIN2=$domain2
-export JENKINS_DOMAIN3=$domain3
-export JENKINS_DOMAIN4=$domain4
-export JENKINS_DOMAIN5=$domain5
-export JENKINS_DOMAIN6=$domain6
-export JENKINS_DOMAIN7=$domain7
-export JENKINS_DOMAIN8=$domain8
-export JENKINS_DOMAIN9=$domain9
-export JENKINS_DOMAIN10=$domain10
 export JENKINS_PLATNAME=$platName
 export JENKINS_APP_IOS_CODE_PUSH_DEPLOYMENT_KEY=$appIosCodePushDeploymentKey
 export JENKINS_APP_ANDROID_CODE_PUSH_DEPLOYMENT_KEY=$appAndroidCodePushDeploymentKey
@@ -100,16 +90,6 @@ EOF
 
 applicationConfig() {
     # Domain
-    sed -i "" "s/domain1/$DOMAIN_1/g" $BUILD_TOOLS/config.json
-    sed -i "" "s/domain2/$DOMAIN_2/g" $BUILD_TOOLS/config.json
-    sed -i "" "s/domain3/$DOMAIN_3/g" $BUILD_TOOLS/config.json
-    sed -i "" "s/domain4/$DOMAIN_4/g" $BUILD_TOOLS/config.json
-    sed -i "" "s/domain5/$DOMAIN_5/g" $BUILD_TOOLS/config.json
-    sed -i "" "s/domain6/$DOMAIN_6/g" $BUILD_TOOLS/config.json
-    sed -i "" "s/domain7/$DOMAIN_7/g" $BUILD_TOOLS/config.json
-    sed -i "" "s/domain8/$DOMAIN_8/g" $BUILD_TOOLS/config.json
-    sed -i "" "s/domain9/$DOMAIN_9/g" $BUILD_TOOLS/config.json
-    sed -i "" "s/domain10/$DOMAIN_10/g" $BUILD_TOOLS/config.json
     sed -i "" "s/pid/$PLATNAME/g" $BUILD_TOOLS/config.json
     cp $BUILD_TOOLS/config.json $WS/src/statics/config.json
     # Android
