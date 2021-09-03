@@ -517,7 +517,7 @@ class CodePush extends Component {
   getCmsConfig = () => {
     let index = 0;
     const fetchCmsConfig = (i) => {
-      const url = domainList[config.platName][i];
+      const url = domainList[i];
       if (url) {
         const xhr = new XMLHttpRequest();
         xhr.open('GET', `${url}/api/pc/cms-config`, true);
