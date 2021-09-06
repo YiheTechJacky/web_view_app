@@ -90,14 +90,31 @@ appcenter apps list
 ```
 3.查看app之熱更key
 ```
-appcenter codepush deployment list -k --app jacky-yihetech168.com/yihe_web_view_app
+appcenter codepush deployment list -k --app YiHeTech/11602-zhong1-ou1-tan4-zhong1-he2-prodios
+appcenter codepush deployment list -k --app YiHeTech/11602-zhong1-ou1-tan4-zhong1-he2-prodandroid
 ```
 4.熱更新版
 ```
-appcenter codepush release-react -a jacky-yihetech168.com/yihe_web_view_app -d Production -t 2.0.5
+appcenter codepush release-react -a YiHeTech/11602-zhong1-ou1-tan4-zhong1-he2-prodios -d Production -t 1.0.0
+appcenter codepush release-react -a YiHeTech/11602-zhong1-ou1-tan4-zhong1-he2-prodandroid -d Production -t 1.0.0
 
 -a 指定app
 -d 指定環境
 -t 指定版本號碼
 ```
+
+11602
+
+production
+ios
+appCenterKey
+48b3177e-5c4f-407e-b899-305e41476d0e
+codePushKey
+Rpzt8crgM8naiEU5x5jAy4Dtdf09VPpVbSw-k
+
+android
+appCenterKey
+51329b09-96a4-4e2c-aa71-d7959dd51dae
+codePushKey
+_XgVMb9Jz9iXnQPiqBhQDLJF0pYrN1HAj9U0c
 
