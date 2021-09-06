@@ -113,6 +113,7 @@ appCenterKey
 codePushKey
 Rpzt8crgM8naiEU5x5jAy4Dtdf09VPpVbSw-k
 －－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+production
 android
 appCenterKey
 51329b09-96a4-4e2c-aa71-d7959dd51dae
