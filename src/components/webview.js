@@ -282,13 +282,13 @@ const MainWebview = ({ appDomain }) => {
           if (navState.canGoBack) {
             backKeyPressed();
           } else {
-            Alert.alert('温馨提示', '是否确认结束游玩？', [
+            Alert.alert('温馨提示', '是否确认结束？', [
               {
-                text: '下次再玩',
+                text: '取消',
                 onPress: () => BackHandler.exitApp(),
               },
               {
-                text: '继续玩玩',
+                text: '确认',
                 onPress: () => null,
                 style: 'cancel',
               },
