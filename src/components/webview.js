@@ -284,11 +284,11 @@ const MainWebview = ({ appDomain }) => {
           } else {
             Alert.alert('温馨提示', '是否确认结束？', [
               {
-                text: '取消',
+                text: '确认',
                 onPress: () => BackHandler.exitApp(),
               },
               {
-                text: '确认',
+                text: '取消',
                 onPress: () => null,
                 style: 'cancel',
               },
