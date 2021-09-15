@@ -104,7 +104,7 @@ appcenter codepush release-react -a YiHeTech/11604-zhong1-jin1-tan4-jiao1-yi4-pr
 ```
 
 11602
-中欧碳中和
+中金碳交易
 －－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
 production
 ios
