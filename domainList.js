@@ -1,10 +1,5 @@
-const domainList = {
-    test: [
-        'https://web-dev.yihetech168.com',
-    ],
-    "11602test": [
-        'http://zhongo.okkoinc.com',
-    ],
-};
+const domainList = [
+    'https://web-dev.yihetech168.com',
+];
 
 export default domainList;

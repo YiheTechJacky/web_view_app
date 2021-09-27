@@ -471,8 +471,8 @@ const CssModal = {
   },
 };
 
-// const codePushOptions = { checkFrequency: codePush.CheckFrequency.MANUAL }; // 手动检查
-const codePushOptions = { checkFrequency: codePush.CheckFrequency.ON_APP_START }; // app从后台切换过来时
+const codePushOptions = { checkFrequency: codePush.CheckFrequency.MANUAL }; // 手动检查
+// const codePushOptions = { checkFrequency: codePush.CheckFrequency.ON_APP_START }; // app从后台切换过来时
 
 class CodePush extends Component {
   constructor(props) {
@@ -492,83 +492,137 @@ class CodePush extends Component {
   }
 
   componentDidMount = async () => {
-    const needUpdate = await this.checkUpdate();
-    if (needUpdate !== null) {
-      this.setState({
-        updateDescription: needUpdate.description,
-      });
-    } else {
-      await this.getCmsConfig();
-    }
-  }
+    await this.getConfig();
+  };
 
   componentDidUpdate = (prevProps, prevState) => {
-    const { update, restart } = this.state;
+    const {
+      update,
+      restart,
+    } = this.state;
+
     if (prevState.update !== update && update) {
       this.syncUpdate();
     }
     if (prevState.restart !== restart && restart) {
       setTimeout(() => {
         codePush.restartApp();
-      }, 2000)
+      }, 2000);
     }
-  }
+  };
 
-  getCmsConfig = () => {
-    let index = 0;
-    const fetchCmsConfig = (i) => {
-      const url = domainList[config.platName][i];
+  getConfig = async () => {
+    const fetchConfig = async (i) => {
+      const url = domainList[i];
+      console.log('<=============== config ===============>');
+      console.log(`getConfig try times: ${i + 1}`);
+      console.log(`getConfig url: ${url}`);
       if (url) {
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', `${url}/api/pc/cms-config`, true);
+        xhr.open('GET', `${url}/api/pc/configure`, true);
         xhr.setRequestHeader('referer', url);
         xhr.onload = () => {
           if (xhr.readyState === 4) {
             if (xhr.status < 400) {
-              console.log(JSON.parse(xhr.response).result.appDomain);
-              this.setState({
-                appDomain: JSON.parse(xhr.response).result.appDomain,
-              });
-              xhr.abort();
+              console.log(JSON.parse(xhr.response));
+              const isAppNeedHotupdate = JSON.parse(xhr.response).is_app_hotupdate === '1' ? true : false;
+              this.getCmsConfig(url, isAppNeedHotupdate);
             } else {
-              index++;
-              fetchCmsConfig(index);
-              xhr.abort();
+              fetchConfig(i + 1);
             }
             xhr.abort();
           }
         };
         xhr.ontimeout = () => {
-          index++;
-          fetchCmsConfig(index);
+          fetchConfig(i + 1);
+          xhr.abort();
         };
         xhr.onerror = () => {
-          index++;
-          fetchCmsConfig(index);
+          fetchConfig(i + 1);
+          xhr.abort();
         };
         xhr.send(null);
+      } else {
+        console.log('Not find domain in domainList.');
+        this.fireHotUpdate();
       }
-    }
-    fetchCmsConfig(index);
-  }
+    };
+    fetchConfig(0);
+  };
 
-  checkUpdate = () => {
-    return codePush.checkForUpdate();
-  }
+  getCmsConfig = (url, isAppNeedHotupdate) => {
+    console.log('<=============== cmsConfig ===============>');
+    console.log(`getCmsConfig url: ${url}`);
+    console.log(`getCmsConfig is need hotupdate? ${isAppNeedHotupdate}`);
+    const fetchCmsConfig = async () => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', `${url}/api/pc/cms-config`, true);
+      xhr.setRequestHeader('referer', url);
+      xhr.onload = () => {
+        if (xhr.readyState === 4) {
+          if (xhr.status < 400) {
+            console.log(JSON.parse(xhr.response));
+            this.setState({
+              appDomain: JSON.parse(xhr.response).result.appDomain,
+            });
+            if (isAppNeedHotupdate) {
+              this.fireHotUpdate();
+            } else {
+              this.setState({
+                syncMessage: '无需进行更新程序，正在进入APP...',
+              });
+              setTimeout(() => {
+                this.setState({
+                  isAppShow: true,
+                });
+              }, 1000);
+            }
+          } else {
+            this.setState({
+              syncMessage: '无法获取站点内容配置，请联系客服',
+              progress: false,
+              showCloseBtn: true,
+            });
+          }
+          xhr.abort();
+        }
+      };
+      xhr.send(null);
+    };
+    fetchCmsConfig();
+  };
+
+  fireHotUpdate = async () => {
+    console.log('<=============== hotUpdating ===============>');
+    const needUpdate = await codePush.checkForUpdate();
+    if (needUpdate !== null) {
+      this.setState({
+        updateDescription: needUpdate.description,
+      });
+    }
+  };
 
   codePushStatusDidChange = (syncStatus) => {
     switch (syncStatus) {
       case codePush.SyncStatus.CHECKING_FOR_UPDATE:
-        this.setState({ syncMessage: '检查更新状态' });
+        this.setState({
+          syncMessage: '检查更新状态',
+        });
         break;
       case codePush.SyncStatus.DOWNLOADING_PACKAGE:
-        this.setState({ syncMessage: '下载更新资料' });
+        this.setState({
+          syncMessage: '下载更新资料',
+        });
         break;
       case codePush.SyncStatus.AWAITING_USER_ACTION:
-        this.setState({ syncMessage: '等待用户回应' });
+        this.setState({
+          syncMessage: '等待用户回应',
+        });
         break;
       case codePush.SyncStatus.INSTALLING_UPDATE:
-        this.setState({ syncMessage: '安装更新中' });
+        this.setState({
+          syncMessage: '安装更新中',
+        });
         break;
       case codePush.SyncStatus.UPDATE_IGNORED:
         this.setState({
@@ -659,7 +713,6 @@ class CodePush extends Component {
   }
 
   render() {
-    console.log(this.state);
     if (this.state.isAppShow && this.state.appDomain.length) return <App appDomain={this.state.appDomain} />;
 
     let progressView = <ActivityIndicator color={CssTheme.colorText} />;
