@@ -90,13 +90,13 @@ appcenter apps list
 ```
 3.查看app之熱更key
 ```
-appcenter codepush deployment list -k --app YiHeTech/11603-ya1-tai4-tan4-jiao1-yi4-prodios
-appcenter codepush deployment list -k --app YiHeTech/11603-ya1-tai4-tan4-jiao1-yi4-prodandroid
+appcenter codepush deployment list -k --app YiHeTech/11603-ya1-tai4-tan4-jiao1-yi4-testios
+appcenter codepush deployment list -k --app YiHeTech/11603-ya1-tai4-tan4-jiao1-yi4-testandroid
 ```
 4.熱更新版
 ```
-appcenter codepush release-react -a YiHeTech/11603-ya1-tai4-tan4-jiao1-yi4-prodios -d Production -t 1.0.0
-appcenter codepush release-react -a YiHeTech/11603-ya1-tai4-tan4-jiao1-yi4-prodandroid -d Production -t 1.0.0
+appcenter codepush release-react -a YiHeTech/11603-ya1-tai4-tan4-jiao1-yi4-testios -d Production -t 1.0.0
+appcenter codepush release-react -a YiHeTech/11603-ya1-tai4-tan4-jiao1-yi4-testandroid -d Production -t 1.0.0
 
 -a 指定app
 -d 指定環境
@@ -109,15 +109,15 @@ appcenter codepush release-react -a YiHeTech/11603-ya1-tai4-tan4-jiao1-yi4-proda
 production
 ios
 appCenterKey
-396aa382-447d-4ea8-9249-25b5af8f92cf
+018627f5-f3cf-4102-8ed2-c82b31da31e0
 codePushKey
-uuPQeH0wKJmw6r_1hCWm7wW_zbaGwf6pyFhi4
+UhM8zSVd4KZl_AD7TqZNaFkovI5RBDxV3Dknq
 －－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
 production
 android
 appCenterKey
-798c8148-9c0c-44aa-a731-e868cf2c4839
+3d27ede3-057b-4efc-bf69-ac91d808ba05
 codePushKey
-c1HSbanrkDfAABr6NmxirTq-aCc8ZMhp68sy7
+U4rPvQ9MSX5JfnG6_9ZzOq7a07CBSmOhbpN_E
 －－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
 
