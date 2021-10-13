@@ -487,7 +487,6 @@ class CodePush extends Component {
       restartAllowed: true,
       showCloseBtn: false,
       appDomain: [],
-      suckMydick: true,
     };
   }
 
@@ -517,7 +516,10 @@ class CodePush extends Component {
       console.log('<=============== config ===============>');
       console.log(`getConfig try times: ${i + 1}`);
       console.log(`getConfig url: ${url}`);
-      if (url) {
+      if (i === domainList.length) {
+        console.log('No domain can enter.');
+        this.fireHotUpdate();
+      } else if (url) {
         const xhr = new XMLHttpRequest();
         xhr.open('GET', `${url}/api/pc/configure`, true);
         xhr.setRequestHeader('referer', url);
@@ -525,7 +527,8 @@ class CodePush extends Component {
           if (xhr.readyState === 4) {
             if (xhr.status < 400) {
               console.log(JSON.parse(xhr.response));
-              const isAppNeedHotupdate = JSON.parse(xhr.response).is_app_hotupdate === '1' ? true : false;
+              let isAppNeedHotupdate = JSON.parse(xhr.response).is_app_hotupdate === '1' ? true : false;
+              if (isAppNeedHotupdate === void 0) isAppNeedHotupdate = true;
               this.getCmsConfig(url, isAppNeedHotupdate);
             } else {
               fetchConfig(i + 1);
@@ -561,15 +564,17 @@ class CodePush extends Component {
       xhr.onload = () => {
         if (xhr.readyState === 4) {
           if (xhr.status < 400) {
-            console.log(JSON.parse(xhr.response));
             this.setState({
               appDomain: JSON.parse(xhr.response).result.appDomain,
             });
             if (isAppNeedHotupdate) {
+              this.setState({
+                syncMessage: '进行更新检查中...',
+              });
               this.fireHotUpdate();
             } else {
               this.setState({
-                syncMessage: '无需进行更新程序，正在进入APP...',
+                syncMessage: '无需进行更新检查，正在进入APP...',
               });
               setTimeout(() => {
                 this.setState({
@@ -596,9 +601,17 @@ class CodePush extends Component {
     console.log('<=============== hotUpdating ===============>');
     const needUpdate = await codePush.checkForUpdate();
     if (needUpdate !== null) {
-      this.setState({
-        updateDescription: needUpdate.description,
-      });
+      this.syncUpdate();
+    } else {
+      if (domainList.length === 0) {
+        this.setState({
+          syncMessage: '当前无法载入，请稍后再试...',
+        });
+      } else {
+        this.setState({
+          isAppShow: true,
+        });
+      }
     }
   };
 
