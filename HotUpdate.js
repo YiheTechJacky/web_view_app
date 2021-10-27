@@ -527,8 +527,9 @@ class CodePush extends Component {
           if (xhr.readyState === 4) {
             if (xhr.status < 400) {
               console.log(JSON.parse(xhr.response));
-              let isAppNeedHotupdate = JSON.parse(xhr.response).is_app_hotupdate === '1' ? true : false;
-              if (isAppNeedHotupdate === void 0) isAppNeedHotupdate = true;
+              const isEnableHotUpdate = JSON.parse(xhr.response).is_app_hotupdate;
+              let isAppNeedHotupdate = isEnableHotUpdate === '1' ? true : false;
+              if (isEnableHotUpdate === void 0) isAppNeedHotupdate = true;
               this.getCmsConfig(url, isAppNeedHotupdate);
             } else {
               fetchConfig(i + 1);
