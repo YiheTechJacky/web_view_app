@@ -90,34 +90,34 @@ appcenter apps list
 ```
 3.查看app之熱更key
 ```
-appcenter codepush deployment list -k --app YiHeTech/11604-zhong1-jin1-tan4-jiao1-yi4-prodios
-appcenter codepush deployment list -k --app YiHeTech/11604-zhong1-jin1-tan4-jiao1-yi4-prodandroid
+appcenter codepush deployment list -k --app YiHeTech/11606-xin1-neng2-yuan2-ETFprodios
+appcenter codepush deployment list -k --app YiHeTech/11606-xin1-neng2-yuan2-ETFprodandroid
 ```
 4.熱更新版
 ```
-appcenter codepush release-react -a YiHeTech/11604-zhong1-jin1-tan4-jiao1-yi4-prodios -d Production -t 1.0.0
-appcenter codepush release-react -a YiHeTech/11604-zhong1-jin1-tan4-jiao1-yi4-prodandroid -d Production -t 1.0.0
+appcenter codepush release-react -a YiHeTech/11606-xin1-neng2-yuan2-ETFprodios -d Production -t 1.0.0
+appcenter codepush release-react -a YiHeTech/11606-xin1-neng2-yuan2-ETFprodandroid -d Production -t 1.0.0
 
 -a 指定app
 -d 指定環境
 -t 指定版本號碼
 ```
 
-11604
+11606
 中金碳交易
 －－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
 production
 ios
 appCenterKey
-6e0a24bd-9bf3-4e43-8880-59fb1f08db76
+b1b90991-1c2e-43e1-9f01-c9d6793f6642
 codePushKey
-izO8HE2luiZDWoEoLpSuL1cKCghDt3N2zEcwE
+5bj02zPq1HlbqEoZnhsgIUHF3uqQT_PyisFOa
 －－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
 production
 android
 appCenterKey
-c6ef52be-ae4e-4b99-9f2e-a7dfd2207ff0
+d15619b6-3aa3-4d32-a387-a3d9e7d5cca3
 codePushKey
-scVEDBZO13w8hPpVQNy8sl8RVSDHcgYnRdS_9
+sHaD0loX7rh7uVUSFMN09-qpr_aSpC2arcHek
 －－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
 
