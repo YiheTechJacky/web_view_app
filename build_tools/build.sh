@@ -3,16 +3,16 @@ export LANG=en_US.UTF-8
 
 # apple related vars - 此區塊與開發者帳號相關
 export BUNDLEID_SCOPE="com.yihe.app"
-export DEVELOPERTEAM="XG4C3UYMBY"
+export DEVELOPERTEAM="LWFXC6T467"
 
 # jenkins vars - 此區塊對接jenkins不可變動
-export JENKINS_PLATID=$platId
-export JENKINS_APP_NAME=$appName
-export JENKINS_PLATNAME=$platName
-export JENKINS_APP_IOS_CODE_PUSH_DEPLOYMENT_KEY=$appIosCodePushDeploymentKey
-export JENKINS_APP_ANDROID_CODE_PUSH_DEPLOYMENT_KEY=$appAndroidCodePushDeploymentKey
-export JENKINS_APP_IOS_APP_CENTER_KEY=$appIosAppCenterKey
-export JENKINS_APP_ANDROID_APP_CENTER_KEY=$appAndroidAppCenterKey
+export JENKINS_PLATID="11608"
+export JENKINS_APP_NAME="汇金碳交易"
+export JENKINS_PLATNAME="11608"
+export JENKINS_APP_IOS_CODE_PUSH_DEPLOYMENT_KEY="dN6iUeqC61nczYMVa0fnlF0YPtAGZl-q95wUd"
+export JENKINS_APP_ANDROID_CODE_PUSH_DEPLOYMENT_KEY="LF98K0uv2FfybTE3dck13CZIbCSlGrrUUchfy"
+export JENKINS_APP_IOS_APP_CENTER_KEY="942825a8-5fe1-4609-8d64-4a29f9adfe95"
+export JENKINS_APP_ANDROID_APP_CENTER_KEY="eb5b8e13-f718-4324-b352-20d091219d9d"
 
 # vars - 下方腳本所使用之變數
 export PLATID=$JENKINS_PLATID
@@ -176,7 +176,8 @@ iosBuild() {
         -configuration Release \
         -archivePath $APP_NAME.xcarchive \
         -IDEBuildOperationMaxNumberOfConcurrentCompileTasks=1 \
-        -allowProvisioningUpdates
+        -allowProvisioningUpdates \
+        -destination generic/platform=iOS
     if [ "$?" -ne 0 ]; then
         echo "############"
         echo "# iosBuild壞掉惹rrr #"
@@ -222,6 +223,6 @@ initProject
 applicationConfig
 iconAssets
 launcherAssets
-androidBuild
+# androidBuild
 iosBuild
 
