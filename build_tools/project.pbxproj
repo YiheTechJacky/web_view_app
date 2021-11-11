@@ -22,6 +22,7 @@
 		5ED072CAC84081F28F2BE5D6 /* libPods-webview_app.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F255F11A1C46D122A866631B /* libPods-webview_app.a */; };
 		8F141948DE6B79451E3AF8A7 /* libPods-webview_app-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD9FABCB3649D27088D360C1 /* libPods-webview_app-tvOSTests.a */; };
 		D62BFF78422FBF4D0E44D7C7 /* libPods-webview_app-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A02462AB18A6832973047AC /* libPods-webview_app-tvOS.a */; };
+		F94767F326B913EF0000C328 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = F94767F226B913EE0000C328 /* AppCenter-Config.plist */; };
 		FE1A70DEFB6DEAA8E7C9AF08 /* libPods-webview_app-webview_appTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1FEF3D16049C0D30DE25202 /* libPods-webview_app-webview_appTests.a */; };
 /* End PBXBuildFile section */
 
@@ -72,6 +73,7 @@
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F255F11A1C46D122A866631B /* libPods-webview_app.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-webview_app.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F54C7B3A9C9F0CC185438DAD /* Pods-webview_app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-webview_app.release.xcconfig"; path = "Target Support Files/Pods-webview_app/Pods-webview_app.release.xcconfig"; sourceTree = "<group>"; };
+		F94767F226B913EE0000C328 /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "AppCenter-Config.plist"; path = "webview_app/AppCenter-Config.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +168,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				F94767F226B913EE0000C328 /* AppCenter-Config.plist */,
 				13B07FAE1A68108700A75B9A /* webview_app */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* webview_appTests */,
@@ -351,6 +354,7 @@
 				470B093B24923648002E5762 /* launchImage_ios.png in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				F94767F326B913EF0000C328 /* AppCenter-Config.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -384,7 +388,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport EXTRA_PACKAGER_ARGS=\"--sourcemap-output $DERIVED_FILE_DIR/main.jsbundle.map\"\nexport NODE_BINARY=node\n../node_modules/@sentry/cli/bin/sentry-cli react-native xcode ../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -398,7 +402,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport EXTRA_PACKAGER_ARGS=\"--sourcemap-output $DERIVED_FILE_DIR/main.jsbundle.map\"\nexport NODE_BINARY=node\n../node_modules/@sentry/cli/bin/sentry-cli react-native xcode ../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
 		3499A2C7BD4DCB5104890FE7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -601,7 +605,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = webview_appTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -621,7 +625,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = webview_appTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -650,6 +654,7 @@
 					"FB_SONARKIT_ENABLED=1",
 				);
 				INFOPLIST_FILE = webview_app/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -676,6 +681,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DEVELOPERTEAM;
 				INFOPLIST_FILE = webview_app/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -908,6 +914,7 @@
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
