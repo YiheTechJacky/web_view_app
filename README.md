@@ -90,13 +90,13 @@ appcenter apps list
 ```
 3.查看app之熱更key
 ```
-appcenter codepush deployment list -k --app YiHeTech/11607-zhong1-ou1-mei3-lv4-zheng4-jiao1-yi4-prodios
-appcenter codepush deployment list -k --app YiHeTech/11607-zhong1-ou1-mei3-lv4-zheng4-jiao1-yi4-prodandroid
+appcenter codepush deployment list -k --app YiHeTech/11607-zhong1-ou1-mei3-lv4-zheng4-jiao1-yi4-testios
+appcenter codepush deployment list -k --app YiHeTech/11607-zhong1-ou1-mei3-lv4-zheng4-jiao1-yi4-testandroid
 ```
 4.熱更新版
 ```
-appcenter codepush release-react -a YiHeTech/11607-zhong1-ou1-mei3-lv4-zheng4-jiao1-yi4-prodios -d Production -t 1.0.0
-appcenter codepush release-react -a YiHeTech/11607-zhong1-ou1-mei3-lv4-zheng4-jiao1-yi4-prodandroid -d Production -t 1.0.0
+appcenter codepush release-react -a YiHeTech/11607-zhong1-ou1-mei3-lv4-zheng4-jiao1-yi4-testios -d Production -t 1.0.0
+appcenter codepush release-react -a YiHeTech/11607-zhong1-ou1-mei3-lv4-zheng4-jiao1-yi4-testandroid -d Production -t 1.0.0
 
 -a 指定app
 -d 指定環境
