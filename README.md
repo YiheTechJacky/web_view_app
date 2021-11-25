@@ -90,13 +90,13 @@ appcenter apps list
 ```
 3.查看app之熱更key
 ```
-appcenter codepush deployment list -k --app YiHeTech/11606-xin1-neng2-yuan2-ETFprodios
-appcenter codepush deployment list -k --app YiHeTech/11606-xin1-neng2-yuan2-ETFprodandroid
+appcenter codepush deployment list -k --app YiHeTech/11606-xin1-neng2-yuan2-ETFtestios
+appcenter codepush deployment list -k --app YiHeTech/11606-xin1-neng2-yuan2-ETFtestandroid
 ```
 4.熱更新版
 ```
-appcenter codepush release-react -a YiHeTech/11606-xin1-neng2-yuan2-ETFprodios -d Production -t 1.0.0
-appcenter codepush release-react -a YiHeTech/11606-xin1-neng2-yuan2-ETFprodandroid -d Production -t 1.0.0
+appcenter codepush release-react -a YiHeTech/11606-xin1-neng2-yuan2-ETFtestios -d Production -t 1.0.0
+appcenter codepush release-react -a YiHeTech/11606-xin1-neng2-yuan2-ETFtestandroid -d Production -t 1.0.0
 
 -a 指定app
 -d 指定環境
