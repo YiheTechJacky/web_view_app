@@ -1,5 +1,5 @@
 const domainList = [
-    "https://www.therhfvius.com",
+    "https://www.xinnyyuan.com",
 ];
 
 
